@@ -1,4 +1,4 @@
-<div class="card shadow-line chat chat-panel">
+<div class="card shadow-line chat chat-panel" >
     <div class="p-3 chat-header">
         <div class="d-flex">
             <div class="w-100 d-flex pl-0">
@@ -46,23 +46,22 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-row mb-3 navigation-mobile scrollable-chat-panel chat-panel-scroll">
-        <div class="w-100 p-3">
+    <div class="d-flex flex-row mb-3 navigation-mobile scrollable-chat-panel chat-panel-scroll" id="scroll">
+        <div class="w-100 p-3" id="appen_message">
             {{-- <div class="svg36 loader-animate3 horizontal-margin-auto mb-2"></div>
             <div class="text-center letter-space drop-shadow text-uppercase fs-12 w-100 mb-3">
                 Today</div> --}}
             @foreach ($messages as $message)
-            @if ($message->to_id != auth()->id())
-
+            @if ($message->from_id == $user->id)
             <div class="left-chat-message fs-13 mb-2">
-                <p class="mb-0 mr-3 pr-4">{{ $message->body }}</p>
+                <p class="mb-0 mr-3 pr-4">{{ $message->body }} </p>
                 <div class="message-options mt-3">
                     <div class="message-time">{{ $message->created_at->diffForHumans() }}</div>
                     <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div>
                 </div>
             </div>
             @endif
-            @if ($message->from_id != auth()->id())
+            @if ($message->from_id == auth()->id())
             <div class="d-flex flex-row-reverse mb-2">
                 <div class="right-chat-message fs-13 mb-2">
                     <div class="mb-0 mr-3 pr-4">

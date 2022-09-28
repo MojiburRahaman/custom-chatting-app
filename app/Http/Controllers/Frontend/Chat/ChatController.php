@@ -28,15 +28,24 @@ class ChatController extends Controller
     {
         $id = $request->id;
         $user =  User::findorfail($id);
-        $messages = Message::where([
-            'from_id' => auth()->id(),
-            'to_id' => $user->id
-        ])
-            ->orwhere([
-                'to_id' => auth()->id(),
-                'from_id' => $user->id
-            ])
-            ->get();
+        //   $messages = Message::where([
+        //     'from_id' => auth()->id(),
+        //     'to_id' => $user->id
+        // ])
+        //     ->orwhere([
+        //         'to_id' => auth()->id(),
+        //         'from_id' => $user->id,
+        //     ])
+        //     ->get();
+
+            $messages =  Message::where(function ($q) {
+    $q->where('from_id',  auth()->id())
+    ->orWhere('to_id',  auth()->id());
+})->where(function ($q) use($user) {
+    $q->where('to_id',$user->id)
+    ->orWhere('from_id', $user->id);
+})->get();
+
 
         $view = view('Frontend.Chat.ajax.message', compact('user', 'messages'))->render();
 
@@ -58,7 +67,8 @@ class ChatController extends Controller
         $message->body = $request->body;
         $message->save();
 
-        broadcast(new MessageSentEvent($message, $user))->toOthers();
+        // broadcast(new MessageSentEvent($user, $message))->toOthers();
+        broadcast(new MessageSentEvent($user, $message))->toOthers();
 
         // return response()->json([
         //     'view' => $view,
