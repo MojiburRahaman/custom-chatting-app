@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $dates = [
+        'last_seen'
+    ];
+
+    public function receiver()
+    {
+        return $this->hasMany(Message::class, 'to_id');
+    }
+
+    public function sender()
+    {
+        return $this->hasMany(Message::class, 'from_id');
+    }
 }

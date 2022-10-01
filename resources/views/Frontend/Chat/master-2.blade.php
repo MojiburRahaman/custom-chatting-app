@@ -4,6 +4,7 @@
 <head>
     <title>Messenger</title>
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" />
@@ -11,12 +12,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" />
     <link rel="stylesheet" href="{{ asset('Frontend/css/style.css') }}">
 </head>
 
 <body>
+    <style>
+        .active_icon {
+
+            color: green;
+            font-size: 9px;
+            float: left;
+            position: relative;
+            top: 16px;
+            right: -165px;
+        }
+
+        .offline_icon {
+
+            color: grey;
+            font-size: 9px;
+            float: left;
+            position: relative;
+            top: 16px;
+            right: -165px;
+        }
+
+        .name {
+            float: left;
+            position: relative;
+            top: 10px;
+            right: 50px;
+        }
+    </style>
+
     <div class="main-wrapper">
         <div class="container">
             <div class="page-content">
@@ -136,9 +167,50 @@
                                     </div>
                                 </div> --}}
                                 <div class="chat-user-panel" id="chat_user">
-                                    <div
-                                        class="pb-3 d-flex flex-column navigation-mobile pagination-scrool chat-user-scroll">
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3" data-id="5" id="userID">
+                                    <div class="pb-3 d-flex flex-column navigation-mobile pagination-scrool chat-user-scroll"
+                                        id="allConvoUser">
+
+                                        @foreach ($users as $user)
+                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3" data-id="{{ $user->id }}"
+                                            id="userID{{ $user->id }}">
+                                            <div class="w-100">
+                                                <div class="d-flex pl-0">
+                                                    <img class="rounded-circle avatar-sm mr-3"
+                                                        src="{{ Avatar::create($user->name)->toBase64() }}">
+                                                    <div>
+                                                        <span id="status{{ $user->id }}">
+                                                            @if($user->last_seen->diffForHumans() != now())
+
+
+                                                            <i class="offline_icon  fa-sharp fa-solid fa-circle">{{
+                                                                $user->last_seen->diffForHumans() }}</i>
+
+                                                            @else
+
+                                                            <i
+                                                                class="active_icon fa-sharp fa-solid fa-circle">Online</i>
+                                                            @endif
+                                                        </span>
+                                                        <p class="name margin-auto fw-400 text-dark-75">{{ $user->name
+                                                            }}</p>
+                                                        {{-- <div class="d-flex flex-row mt-1">
+                                                            <span>
+                                                                <div class="svg15 double-check-blue"></div>
+                                                            </span>
+                                                        </div> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="flex-shrink-0 margin-auto pl-2 pr-3">
+                                                <div class="d-flex flex-column">
+                                                    <p class="text-muted text-right fs-13 mb-2">1.9.2021</p>
+                                                </div>
+                                            </div> --}}
+                                        </div>
+
+
+                                        @endforeach
+                                        {{-- <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3" data-id="5" id="userID5">
                                             <div class="w-100">
                                                 <div class="d-flex pl-0">
                                                     <img class="rounded-circle shadow avatar-sm mr-3"
@@ -368,7 +440,7 @@
                                                     <p class="text-muted text-right fs-13 mb-2">1.9.2021</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="chat-user-panel" style="display: none" id="searchPage">
@@ -720,12 +792,16 @@
     <script>
         $(document).on("click", ".chat-item", function () {   
     const id = $(this).attr('data-id');
+    $('.chat-item').removeClass( "active" );
 
 $.ajax({
                     type:"POST",
                     url: '{{route('FetchUser')}}',
                     data:{ _token: '{{ csrf_token() }}', id:id},
                     success: function(data){
+
+                        $( "#userID"+id ).addClass( "active" );
+
                       $('#message').html(data.view);
                       $('.scrollable-chat-panel').perfectScrollbar();
     var position = $(".chat-search").last().position().top;
@@ -767,17 +843,6 @@ $.ajax({
             }
         }
 
-
-//         var pusher = new Pusher('49b3068f6af171ea9b9d', {
-//   cluster: 'ap2',
-
-// 		encrypted: true
-// 	  });
-
-// 	  // Subscribe to the channel we specified in our Laravel Event
-// 	  var channel = pusher.subscribe('message');
-
-
         
     </script>
 
@@ -794,54 +859,12 @@ $.ajax({
         data: { _token: '{{ csrf_token() }}', body:body, to_id:to_id}, // serializes the form's elements.
         success: function(data)
     {
-body.value= '';
-// var pusher = new Pusher('49b3068f6af171ea9b9d', {
-//   cluster: 'ap2',
-//   encrypted: true,
-//   authEndpoint: '/channels/authorize',
-//   forceTLS: true,
-//   auth:{
-//     headers:{
-//         'X-CSRF-Token' : '{{ csrf_token() }}'
-//     }
-//   }
-// });
+    $("#allConvoUser").load(location.href + " #allConvoUser");
 
-
-
-// const left_msg = '<div class="left-chat-message fs-13 mb-2"><p class="mb-0 mr-3 pr-4">$message->bodyto </p><div class="message-options mt-3"><div class="message-time"> $message->created_at->diffForHumans() </div><div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div></div></div>';
-// const right_msg = '<div class="d-flex flex-row-reverse mb-2"><div class="right-chat-message fs-13 mb-2"><div class="mb-0 mr-3 pr-4"><div class="d-flex flex-row"><div class="pr-2">$message->bodyfrom</div><div class="pr-4"></div></div></div><div class="message-options dark mt-3"><div class="message-time"><div class="d-flex flex-row "> <div class="mr-2 ">$message->created_at->diffForHumans()</div><div class="svg15 double-check"></div></div> </div> <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div> </div> </div></div>';
-
-// const auth_id = '{{ auth()->id() }}';
-// // var pusher = new Pusher('49b3068f6af171ea9b9d', {
-// //   cluster: 'ap2',
-
-// // 		encrypted: true
-// // 	  });
-
-// // 	  // Subscribe to the channel we specified in our Laravel Event
-// // 	  var channel = pusher.subscribe('message');
-// // $('#appen_message').hide();
-// 	  // Bind a function to a Event (the full Laravel class)
-// 	  channel.bind('App\\Events\\MessageSentEvent', function(data) {
-// if(auth_id == data.data.from_id)
-// {
-//     $('#appen_message').append(right_msg);
-
-// }
-// if(auth_id != data.data.from_id){
-//     $('#appen_message').append(left_msg);
-
-// }
-// scroll()
-// // var objDiv = document.getElementById('scroll');
-// //     objDiv.scrollTop = objDiv.scrollHeight
-//       });
+        $('#body').val('');
     },
     error:function (response) {
-        //   $('#wallet').hide();
-        //  $('#invalid_credit').show();
-        //   $('#invalid_credit').text(response.responseJSON.error);
+        
         }
             });
     
@@ -852,50 +875,65 @@ function scroll(){
 }
     </script>
 
-
-
-
+    
+@include('Frontend.Chat.pusher')
+{{-- 
     <script>
-
-
-var pusher = new Pusher('49b3068f6af171ea9b9d', {
+        // pusher config
+        var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
   cluster: 'ap2',
-
 		encrypted: true
 	  });
-      var channel = pusher.subscribe('message');
 
-      channel.bind('pusher:subscription_succeeded', function(members) {
-    alert('Internet Connected');
- });
+      Pusher.logToConsole = true;
+
+      var channel = pusher.subscribe('message');
+      
+            channel.bind('pusher:subscription_succeeded', function(members) {
+
+          alert('Internet Connected');
+
+       });
+
+
 	  // Subscribe to the channel we specified in our Laravel Event
 
-   Pusher.logToConsole = true;
 
 const left_msg = '<div class="left-chat-message fs-13 mb-2"><p class="mb-0 mr-3 pr-4">$message->bodyto </p><div class="message-options mt-3"><div class="message-time"> $message->created_at->diffForHumans() </div><div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div></div></div>';
 const right_msg = '<div class="d-flex flex-row-reverse mb-2"><div class="right-chat-message fs-13 mb-2"><div class="mb-0 mr-3 pr-4"><div class="d-flex flex-row"><div class="pr-2">$message->bodyfrom</div><div class="pr-4"></div></div></div><div class="message-options dark mt-3"><div class="message-time"><div class="d-flex flex-row "> <div class="mr-2 ">$message->created_at->diffForHumans()</div><div class="svg15 double-check"></div></div> </div> <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div> </div> </div></div>';
 
 const auth_id = '{{ auth()->id() }}';
-let date = moment("2019-01-01", "YYYY-MM-DD");
-console.log(date.fromNow());
+
 	  channel.bind('App\\Events\\MessageSentEvent', function(data) {
-if(auth_id == data.data.from_id)
-{
-    let date = moment(data.data.created_at);
-    $('#appen_message').append('<div class="d-flex flex-row-reverse mb-2"><div class="right-chat-message fs-13 mb-2"><div class="mb-0 mr-3 pr-4"><div class="d-flex flex-row"><div class="pr-2">'+data.data.body+'</div><div class="pr-4"></div></div></div><div class="message-options dark mt-3"><div class="message-time"><div class="d-flex flex-row "> <div class="mr-2 ">'+date.fromNow()+ '</div><div class="svg15 double-check"></div></div> </div> <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div> </div> </div></div>');
+        if(auth_id == data.data.from_id)
+        {
+            let date = moment(data.data.created_at);
+            $('#appen_message').append('<div class="d-flex flex-row-reverse mb-2"><div class="right-chat-message fs-13 mb-2"><div class="mb-0 mr-3 pr-4 mr-5 mb-2"><div class="d-flex flex-row"><div class="pr-2">'+data.data.body+'</div><div class="pr-4"></div></div></div><div class="message-options dark mt-3"><div class="message-time"><div class="d-flex flex-row "> <div class="mr-2 ">'+date.fromNow()+ '</div><div class="svg15 double-check"></div></div> </div> <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div> </div> </div></div>');
 
-}
-if(auth_id != data.data.from_id){
-let date = moment(data.data.created_at);
-  
-    $('#appen_message').append('<div class="left-chat-message fs-13 mb-2"><p class="mb-0 mr-3 pr-4">'+data.data.body+' </p><div class="message-options mt-3"><div class="message-time"> '+date.fromNow()+ ' </div><div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div></div></div>');
+        }
+        if(auth_id != data.data.from_id){
+        let date = moment(data.data.created_at);
+        
+            $('#appen_message').append('<div class="left-chat-message fs-13 mb-2"><p class="mb-0 mr-3 pr-4">'+data.data.body+' </p><div class="message-options mt-3"><div class="message-time"> '+date.fromNow()+ ' </div><div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div></div></div>');
 
-}
-scroll()
-// var objDiv = document.getElementById('scroll');
-//     objDiv.scrollTop = objDiv.scrollHeight
+        }
+        scroll()
       });
-    </script>
+
+
+    //   user activity show
+      var channel = pusher.subscribe('user-activiy');
+
+      channel.bind('App\\Events\\UserActivity', function(data) {
+
+        $('#status'+data.user.id).html('<i class="active_icon fa-sharp fa-solid fa-circle">Online</i>');
+        $('#statusmessage'+data.user.id).html('<p class="sub-caption text-muted text-small mb-0"><i class=" fa-sharp fa-solid fa-circle pr-2" style="color: green"></i>Online</p>');
+      });
+    </script> --}}
+
+
+
+
 </body>
 
 </html>

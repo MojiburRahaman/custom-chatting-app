@@ -18,19 +18,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+
+Route::middleware('activity','auth')->group(function(){
+    
+    // Route::post('/fetch-user', [ChatController::class, 'FetchUserList'])->name('FetchUserList');
+    Route::post('/send-message', [ChatController::class, 'SendMessage'])->name('SendMessage');
+    Route::post('/search', [ChatController::class, 'ChatSearchUser'])->name('ChatSearchUser');
+    Route::post('/search/user', [ChatController::class, 'FetchUser'])->name('FetchUser');
+    Route::get('/message', [ChatController::class, 'Chatview'])->name('Chatview');
+    
+    Route::get('/dashboard', function () {
+        return redirect()->route('Chatview');
+    
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
 });
-// Route::get('/test', function () {
-//     event(new TestEvent('Someone'));
-//     return "Event has been sent!";
-// });
 
-Route::post('/send-message', [ChatController::class, 'SendMessage'])->name('SendMessage');
-Route::post('/search', [ChatController::class, 'ChatSearchUser'])->name('ChatSearchUser');
-Route::post('/search/user', [ChatController::class, 'FetchUser'])->name('FetchUser');
-Route::get('/message', [ChatController::class, 'Chatview'])->name('Chatview');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

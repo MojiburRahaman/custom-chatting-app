@@ -1,4 +1,4 @@
-<div class="card shadow-line chat chat-panel" >
+<div class="card shadow-line chat chat-panel" id="chat_panel">
     <div class="p-3 chat-header">
         <div class="d-flex">
             <div class="w-100 d-flex pl-0">
@@ -8,8 +8,19 @@
                     <a href="!#">
                         <p class="fw-400 mb-0 text-dark-75">{{ $user->name }}</p>
                     </a>
-                    <p class="sub-caption text-muted text-small mb-0"><i class="la la-clock mr-1"></i>last seen today at
-                        09:15 PM</p>
+                    {{-- <i class="active_icon fa-sharp fa-solid fa-circle">Online</i> --}}
+
+                    <span id="statusmessage{{ $user->id }}">
+
+                        @if($user->last_seen->diffForHumans() == now() )
+                        <p class="sub-caption text-muted text-small mb-0"><i class=" fa-sharp fa-solid fa-circle pr-2" style="color: green"></i>Online</p>
+    
+                        @else
+    
+                        <p class="sub-caption text-muted text-small mb-0"><i class="la la-clock mr-1"></i>last seen
+                            {{$user->last_seen->diffForHumans()}}</p>
+                        @endif
+                    </span>
                 </div>
             </div>
             <div class="flex-shrink-0 margin-auto">
@@ -53,8 +64,8 @@
                 Today</div> --}}
             @foreach ($messages as $message)
             @if ($message->from_id == $user->id)
-            <div class="left-chat-message fs-13 mb-2">
-                <p class="mb-0 mr-3 pr-4">{{ $message->body }} </p>
+            <div class="left-chat-message fs-13 mb-2 ">
+                <p class="mb-0 mr-3 pr-4 mr-5">{{ $message->body }} </p>
                 <div class="message-options mt-3">
                     <div class="message-time">{{ $message->created_at->diffForHumans() }}</div>
                     <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div>
@@ -63,8 +74,8 @@
             @endif
             @if ($message->from_id == auth()->id())
             <div class="d-flex flex-row-reverse mb-2">
-                <div class="right-chat-message fs-13 mb-2">
-                    <div class="mb-0 mr-3 pr-4">
+                <div class="right-chat-message fs-13 mb-2 ">
+                    <div class="mb-0 mr-3 pr-4 mr-5">
                         <div class="d-flex flex-row">
                             <div class="pr-2">{{ $message->body }}</div>
                             <div class="pr-4"></div>
@@ -82,6 +93,10 @@
                 </div>
             </div>
             @endif
+
+            {{-- <div class="left-chat-message fs-13 mb-2 ">
+                <p class="mb-0 mr-3 ">Typing... </p>
+            </div> --}}
             @endforeach
         </div>
     </div>
