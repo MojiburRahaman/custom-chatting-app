@@ -46,6 +46,24 @@
             top: 10px;
             right: 50px;
         }
+
+        @media (min-width: 770px) and (max-width: 990px) {
+            .name {
+                float: left;
+                position: relative;
+                top: 10px;
+                right: 71px;
+            }
+
+            .offline_icon {
+                color: grey;
+                font-size: 8px;
+                float: left;
+                position: relative;
+                top: 16px;
+                right: -120px;
+            }
+        }
     </style>
 
     <div class="main-wrapper">
@@ -53,7 +71,7 @@
             <div class="page-content">
                 <div class="container ">
                     <div class="row">
-                        <div class="col-md-4 col-12 card-stacked">
+                        <div class="col-md-5 col-lg-4 col-12 card-stacked">
                             <div class="card shadow-line chat">
                                 <div class="chat-user-detail">
                                     <div class="p-3 chat-header">
@@ -152,20 +170,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="archived-messages d-flex p-3">
-                                    <div class="w-100">
-                                        <div class="d-flex pl-0">
-                                            <div class="d-flex flex-row mt-1">
-                                                <span class="margin-auto mr-2">
-                                                    <div class="svg15 archived"></div>
-                                                </span>
-                                                <p class="margin-auto fw-400 text-dark-75">Archived</p>
-                                            </div>
-                                            <div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+
                                 <div class="chat-user-panel" id="chat_user">
                                     <div class="pb-3 d-flex flex-column navigation-mobile pagination-scrool chat-user-scroll"
                                         id="allConvoUser">
@@ -210,237 +215,7 @@
 
 
                                         @endforeach
-                                        {{-- <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3" data-id="5" id="userID5">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle shadow avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796884-ee3aafb6-8083-48ec-9cfb-51b95eae08fe.jpg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Emily Woods</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 double-check"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">I'm
-                                                                looking forward to it</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">08:55</p>
-                                                    <div class="text-right d-flex flex-row">
-                                                        <span>
-                                                            <div class="svg18 pinned"></div>
-                                                        </span>
-                                                        <i class="text-muted la la-angle-down ml-1 fs-15"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item active d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle shadow avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796877-f6c8819a-5d6e-4b2a-bd56-04963639239b.jpg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Beate Lemoine</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 double-check"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto fw-400 fs-13 ml-1 mr-4">Hey
-                                                                Quan, If you are free now we can meet tonight ?</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">08:21</p>
-                                                    <span class="round badge badge-light-success margin-auto">2</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle shadow avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796879-f8c5e585-15c0-49ff-94de-c70539ae434c.jpg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Tessa Nau</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 single-check"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">No
-                                                                that's everyhing, thanks again! </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">04:21</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle shadow avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796872-7251e655-cdf0-4031-a253-bf0db09cdf0f.jpg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Eric Campos</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 double-check-blue"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">So
-                                                                cool, I'll let you know if anything else is needed
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">03:47</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796904-de09be7a-511c-4ae6-8312-4e81b8721555.svg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Lone Rangers</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 double-check-blue"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">
-                                                                <div class="d-flex flex-row text-muted">
-                                                                    <span>Diego</span>:
-                                                                    <span
-                                                                        class="message-shortcut margin-auto fs-13 ml-1 mr-4">So
-                                                                        cool, I'll let you know if anything else is
-                                                                        needed </span>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">01:15</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle shadow avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796882-28875c5c-424a-40d4-8f69-cfb7f18ccd14.jpg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Luis Hamilton</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 double-check"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">no
-                                                                problem</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">yesterday</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796906-ab4fc0f3-551c-4036-b455-be2dfedb9680.svg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Joel Lehtinen</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 double-check"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">find
-                                                                it hard to believe you don't know</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">4.10.2021</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle shadow avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796881-383d6cc9-a4cc-402f-b730-e9edc4e1e9b7.jpg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">James Tolonen</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 single-check"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">All
-                                                                your life</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">6.10.2021</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="chat-item d-flex pl-3 pr-0 pt-3 pb-3">
-                                            <div class="w-100">
-                                                <div class="d-flex pl-0">
-                                                    <img class="rounded-circle avatar-sm mr-3"
-                                                        src="https://user-images.githubusercontent.com/35243461/168796906-ab4fc0f3-551c-4036-b455-be2dfedb9680.svg">
-                                                    <div>
-                                                        <p class="margin-auto fw-400 text-dark-75">Cory Bryant</p>
-                                                        <div class="d-flex flex-row mt-1">
-                                                            <span>
-                                                                <div class="svg15 double-check-blue"></div>
-                                                            </span>
-                                                            <span
-                                                                class="message-shortcut margin-auto text-muted fs-13 ml-1 mr-4">12-year
-                                                                journey to visit more asteroids than any other</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 margin-auto pl-2 pr-3">
-                                                <div class="d-flex flex-column">
-                                                    <p class="text-muted text-right fs-13 mb-2">1.9.2021</p>
-                                                </div>
-                                            </div>
-                                        </div> --}}
+
                                     </div>
                                 </div>
                                 <div class="chat-user-panel" style="display: none" id="searchPage">
@@ -451,7 +226,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8 col-12 card-stacked" id="message">
+                        <div class="col-md-7 col-lg-8 col-12 card-stacked" id="message">
                             {{-- <div class="card shadow-line chat chat-panel">
                                 <div class="p-3 chat-header">
                                     <div class="d-flex">
@@ -777,11 +552,16 @@
             </div>
         </div>
     </div>
+
+    {{-- @php
+    broadcast(new \App\Events\ClientTyping('hello',1))->toOthers();
+
+    @endphp --}}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
-    {{-- <script src="{{ asset('build/assets/app.5e5d76fe.js') }}"></script> --}}
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/js/min/perfect-scrollbar.jquery.min.js">
     </script>
@@ -846,91 +626,65 @@ $.ajax({
         
     </script>
 
-    <script>
-        $(document).on("click", "#submit", function (e) {   
- 
-          const body = $('#body').val();
-    const to_id = $(this).attr('data-id');
-         
-    const actionUrl = '{{ route('SendMessage') }}';
-    $.ajax({
-        type: "POST",
-        url: actionUrl,
-        data: { _token: '{{ csrf_token() }}', body:body, to_id:to_id}, // serializes the form's elements.
-        success: function(data)
-    {
-    $("#allConvoUser").load(location.href + " #allConvoUser");
 
-        $('#body').val('');
-    },
-    error:function (response) {
+
+    @include('Frontend.Chat.pusher')
+    <script>
+//         $(document).on("keyup", "#body", function () {
+//         event.preventDefault();
+//         var id =$('#submit').attr('data-id');
+//         $.ajax({
+//                     type: "POST",
+//                     url: "{{ route('Typing') }}",
+//                     data:{ _token: '{{ csrf_token() }}', id:id},
+//                     success: function(data)
+//                 {
+//                     // $('.typing'+id).remove();
+// console.log('typing');
+//                 // $("#allConvoUser").load(location.href + " #allConvoUser");
+
+//                 //     $('#body').val('');
+//                 //     scroll();
+//                 },
+//                 error:function (response) {
+//                     alert('Server Error');
+//                     }
+//                         });
+// });
+
         
-        }
-            });
-    
-        });
-function scroll(){
-    var objDiv = document.getElementById('scroll');
-    objDiv.scrollTop = objDiv.scrollHeight
-}
-    </script>
+        $(document).on("submit", "#SendTextForm", function () {
+                  event.preventDefault();
+                 const form = $(this);
+        // var id =$('#submit').attr('data-id');
 
-    
-@include('Frontend.Chat.pusher')
-{{-- 
-    <script>
-        // pusher config
-        var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
-  cluster: 'ap2',
-		encrypted: true
-	  });
+$('#client-typing').html('');
 
-      Pusher.logToConsole = true;
+                const actionUrl = '{{ route('SendMessage') }}';
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(data)
+                {
 
-      var channel = pusher.subscribe('message');
-      
-            channel.bind('pusher:subscription_succeeded', function(members) {
+                $("#allConvoUser").load(location.href + " #allConvoUser");
 
-          alert('Internet Connected');
-
+                $(this).focusout();
+                    $('#body').val('');
+                    scroll();
+                },
+                error:function (response) {
+                    alert('Server Error');
+                    }
+                        });
        });
-
-
-	  // Subscribe to the channel we specified in our Laravel Event
-
-
-const left_msg = '<div class="left-chat-message fs-13 mb-2"><p class="mb-0 mr-3 pr-4">$message->bodyto </p><div class="message-options mt-3"><div class="message-time"> $message->created_at->diffForHumans() </div><div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div></div></div>';
-const right_msg = '<div class="d-flex flex-row-reverse mb-2"><div class="right-chat-message fs-13 mb-2"><div class="mb-0 mr-3 pr-4"><div class="d-flex flex-row"><div class="pr-2">$message->bodyfrom</div><div class="pr-4"></div></div></div><div class="message-options dark mt-3"><div class="message-time"><div class="d-flex flex-row "> <div class="mr-2 ">$message->created_at->diffForHumans()</div><div class="svg15 double-check"></div></div> </div> <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div> </div> </div></div>';
-
-const auth_id = '{{ auth()->id() }}';
-
-	  channel.bind('App\\Events\\MessageSentEvent', function(data) {
-        if(auth_id == data.data.from_id)
-        {
-            let date = moment(data.data.created_at);
-            $('#appen_message').append('<div class="d-flex flex-row-reverse mb-2"><div class="right-chat-message fs-13 mb-2"><div class="mb-0 mr-3 pr-4 mr-5 mb-2"><div class="d-flex flex-row"><div class="pr-2">'+data.data.body+'</div><div class="pr-4"></div></div></div><div class="message-options dark mt-3"><div class="message-time"><div class="d-flex flex-row "> <div class="mr-2 ">'+date.fromNow()+ '</div><div class="svg15 double-check"></div></div> </div> <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div> </div> </div></div>');
-
-        }
-        if(auth_id != data.data.from_id){
-        let date = moment(data.data.created_at);
-        
-            $('#appen_message').append('<div class="left-chat-message fs-13 mb-2"><p class="mb-0 mr-3 pr-4">'+data.data.body+' </p><div class="message-options mt-3"><div class="message-time"> '+date.fromNow()+ ' </div><div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div></div></div>');
-
-        }
-        scroll()
-      });
-
-
-    //   user activity show
-      var channel = pusher.subscribe('user-activiy');
-
-      channel.bind('App\\Events\\UserActivity', function(data) {
-
-        $('#status'+data.user.id).html('<i class="active_icon fa-sharp fa-solid fa-circle">Online</i>');
-        $('#statusmessage'+data.user.id).html('<p class="sub-caption text-muted text-small mb-0"><i class=" fa-sharp fa-solid fa-circle pr-2" style="color: green"></i>Online</p>');
-      });
-    </script> --}}
-
+       
+              function scroll(){
+           var objDiv = document.getElementById('scroll');
+           objDiv.scrollTop = objDiv.scrollHeight
+    }
+    </script>
 
 
 

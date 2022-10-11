@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Str;
 class UserSeeder extends Seeder
 {
     /**
@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             $title =  $faker->text(15);
             $company = User::create([
                 'name' => $title,
+                'slug' => str::slug($title),
                 'email' => $faker->email(),
                 'password' =>bcrypt(12345678),
             ]);

@@ -13,10 +13,11 @@
                     <span id="statusmessage{{ $user->id }}">
 
                         @if($user->last_seen->diffForHumans() == now() )
-                        <p class="sub-caption text-muted text-small mb-0"><i class=" fa-sharp fa-solid fa-circle pr-2" style="color: green"></i>Online</p>
-    
+                        <p class="sub-caption text-muted text-small mb-0"><i class=" fa-sharp fa-solid fa-circle pr-2"
+                                style="color: green"></i>Online</p>
+
                         @else
-    
+
                         <p class="sub-caption text-muted text-small mb-0"><i class="la la-clock mr-1"></i>last seen
                             {{$user->last_seen->diffForHumans()}}</p>
                         @endif
@@ -93,52 +94,62 @@
                 </div>
             </div>
             @endif
-
+            
             {{-- <div class="left-chat-message fs-13 mb-2 ">
                 <p class="mb-0 mr-3 ">Typing... </p>
             </div> --}}
             @endforeach
+            {{-- <div id="new_text">
+            </div>
+            <div id="client-typing">
+            </div> --}}
         </div>
     </div>
     <div class="chat-search {{ ($messages->count() == 0) ? 'fix': '' }} pl-3 pr-3 ">
-
-        <div class="input-group">
-            <input type="text" id="body" class="form-control" placeholder="Write a message">
-            <div class="input-group-append prepend-white">
-                <span class="input-group-text pl-2 pr-2">
-                    <i class="chat-upload-trigger fs-19 bi bi-file-earmark-plus ml-2 mr-2"></i>
-                    <i class="fs-19 bi bi-emoji-smile ml-2 mr-2"></i>
-                    <i class="fs-19 bi bi-camera ml-2 mr-2"></i>
-                    {{-- <button type="submit" id="submit">
+        <form action="{{ route('SendMessage') }}" method="POST" id="SendTextForm">
+            @csrf
+            <input type="hidden" name="to_id" value="{{ $user->id }}">
+            <div class="input-group">
+                <input type="text" id="body" name="body" class="form-control" placeholder="Write a message">
+                <div class="input-group-append prepend-white">
+                    <span class="input-group-text pl-2 pr-2">
+                        <i class="chat-upload-trigger fs-19 bi bi-file-earmark-plus ml-2 mr-2"></i>
+                        <i class="fs-19 bi bi-emoji-smile ml-2 mr-2"></i>
                         <i class="fs-19 bi bi-camera ml-2 mr-2"></i>
-                    </button> --}}
-                    <i data-id="{{ $user->id }}" id="submit" class="fs-19 bi bi-cursor ml-2 mr-2"></i>
-                    <div class="chat-upload">
-                        <div class="d-flex flex-column">
-                            <div class="p-2">
-                                <button type="button" class="btn btn-secondary btn-md btn-icon btn-circle btn-blushing">
-                                    <i class="fs-15 bi bi-camera"></i>
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-success btn-md btn-icon btn-circle btn-blushing">
-                                    <i class="fs-15 bi bi-file-earmark-plus"></i>
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-warning btn-md btn-icon btn-circle btn-blushing">
-                                    <i class="fs-15 bi bi-person"></i>
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-danger btn-md btn-icon btn-circle btn-blushing">
-                                    <i class="fs-15 bi bi-card-image"></i>
-                                </button>
+                        <button type="submit" id="submit" class="btn btn-regular" data-id="{{ $user->id }}">
+                            <i class="fs-19 bi bi-cursor ml-2 mr-2"></i>
+                        </button>
+                        <div class="chat-upload">
+                            <div class="d-flex flex-column">
+                                <div class="p-2">
+                                    <button type="button"
+                                        class="btn btn-secondary btn-md btn-icon btn-circle btn-blushing">
+                                        <i class="fs-15 bi bi-camera"></i>
+                                    </button>
+                                </div>
+                                <div class="p-2">
+                                    <button type="button"
+                                        class="btn btn-success btn-md btn-icon btn-circle btn-blushing">
+                                        <i class="fs-15 bi bi-file-earmark-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="p-2">
+                                    <button type="button"
+                                        class="btn btn-warning btn-md btn-icon btn-circle btn-blushing">
+                                        <i class="fs-15 bi bi-person"></i>
+                                    </button>
+                                </div>
+                                <div class="p-2">
+                                    <button type="button"
+                                        class="btn btn-danger btn-md btn-icon btn-circle btn-blushing">
+                                        <i class="fs-15 bi bi-card-image"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </span>
+                    </span>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

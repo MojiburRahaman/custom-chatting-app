@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-
+use Illuminate\Support\Str;
 class RegisteredUserController extends Controller
 {
     /**
@@ -41,9 +42,10 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'slug' => str::slug($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'last_seen' => now(),
+            'last_seen' => Carbon::now(),
         ]);
 
         event(new Registered($user));
